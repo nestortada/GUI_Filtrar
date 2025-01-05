@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Modificar</class>
+ <widget class="QMainWindow" name="Modificar">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>856</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPlainTextEdit" name="plainTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>20</y>
+      <width>211</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(170, 255, 0);</string>
+    </property>
+    <property name="plainText">
+     <string>1. Elije el primer componente</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="Elemento1">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>60</y>
+      <width>221</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="editable">
+     <bool>false</bool>
+    </property>
+    <item>
+     <property name="text">
+      <string>Ninguno</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>110</y>
+      <width>211</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(170, 255, 0);</string>
+    </property>
+    <property name="plainText">
+     <string>2. Elije el segundo componente</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="Elemento2">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>150</y>
+      <width>221</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Ninguno</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_3">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>20</y>
+      <width>211</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(170, 255, 0);</string>
+    </property>
+    <property name="plainText">
+     <string>3. Elije el tercer componente</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="Elemento3">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>60</y>
+      <width>221</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Ninguno</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="Elemento4">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>150</y>
+      <width>221</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Ninguno</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_4">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>110</y>
+      <width>211</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(170, 255, 0);</string>
+    </property>
+    <property name="plainText">
+     <string>4. Elije el cuarto componente</string>
+    </property>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_5">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>20</y>
+      <width>211</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(170, 255, 0);</string>
+    </property>
+    <property name="plainText">
+     <string>5. Elije el quinto componente</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="Elemento5">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>60</y>
+      <width>221</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Ninguno</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QComboBox" name="Elemento6">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>150</y>
+      <width>221</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>Ninguno</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QPlainTextEdit" name="plainTextEdit_6">
+    <property name="geometry">
+     <rect>
+      <x>570</x>
+      <y>110</y>
+      <width>211</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(170, 255, 0);</string>
+    </property>
+    <property name="plainText">
+     <string>6. Elije el sexto componente</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>190</y>
+      <width>221</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Elije la siguiente opcioines</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="Uno">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>190</y>
+      <width>82</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>1 a 1</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="Todos">
+    <property name="geometry">
+     <rect>
+      <x>450</x>
+      <y>190</y>
+      <width>141</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Todas las posibilidaddes</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="Vista">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>230</y>
+      <width>841</width>
+      <height>321</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
