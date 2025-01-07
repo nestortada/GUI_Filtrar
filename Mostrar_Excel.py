@@ -2,6 +2,7 @@ from tkinter import *
 import pandas as pd
 from pandastable import Table
 from PIL import Image, ImageTk
+from Columnas import Modificar
 
 class Tables(Tk):
     def __init__(self, archivo, hoja, *args, **kwargs):
@@ -17,7 +18,7 @@ class Tables(Tk):
         self.tool_frame = Frame(self)
         self.tool_frame.pack(fill=X)
 
-        self.ifila = Image.open(r"Iconos/fila.png")
+        self.ifila = Image.open(r"Iconos\fila.png")
         self.ifila = self.ifila.resize((30, 30), Image.Resampling.LANCZOS)
         self.ifila = ImageTk.PhotoImage(self.ifila)
         self.key = Button(self.tool_frame, command=self.modificar, image=self.ifila, compound="left")
@@ -26,7 +27,7 @@ class Tables(Tk):
         self.key.bind("<Enter>", self.mostrar_tooltip)
         self.key.bind("<Leave>", self.ocultar_tooltip)
 
-        self.tooltip = Label(text="Modificar los indices", bg="yellow", fg="black")
+        self.tooltip = Label(text="Modificar las columnas", bg="yellow", fg="black")
         self.tooltip.pack_forget()
 
     def lectura(self):
@@ -38,7 +39,10 @@ class Tables(Tk):
             return pd.DataFrame()
 
     def modificar(self):
-        pass
+        self.table.model.df.to_excel(self.archivo, sheet_name=self.hoja, index=False)
+        self.columnas = Modificar(self.archivo , self.hoja)
+        self.columnas.show()
+        
 
     def mostrar_tooltip(self, event):
         self.tooltip.place(x=event.x_root, y=event.y_root -30)  

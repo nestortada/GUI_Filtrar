@@ -19,7 +19,7 @@ class Import(QMainWindow):
         self.archivo_seleccionado = ""
         self.hoja_seleccionada = ""
 
-    def importar(self):
+    def importar(self): 
         archivo = filedialog.askopenfilename(filetypes=[("Excel files", "*.xlsx;*.xls")])
         if archivo:
             try:
