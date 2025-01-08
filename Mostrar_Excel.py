@@ -1,6 +1,6 @@
 from tkinter import *
 import pandas as pd
-from pandastable import Table
+from pandastable import Table , TableModel
 from PIL import Image, ImageTk
 from Columnas import Modificar
 
@@ -37,12 +37,26 @@ class Tables(Tk):
         except Exception as e:
             print(f"Error al leer el archivo: {e}")
             return pd.DataFrame()
-
-    def modificar(self):
-        self.table.model.df.to_excel(self.archivo, sheet_name=self.hoja, index=False)
-        self.columnas = Modificar(self.archivo , self.hoja)
-        self.columnas.show()
         
+    def modificar(self):
+       
+        self.table.model.df.to_excel(self.archivo, sheet_name=self.hoja, index=False)
+        
+        
+        self.columnas = Modificar(self.archivo, self.hoja)
+        
+        
+        self.columnas.closed.connect(self.actualizar_tabla)
+        
+        self.columnas.show()
+
+    def actualizar_tabla(self):
+    
+        new_df = self.lectura()
+        print(new_df.index.tolist())
+        print(self.table.model.df.index.tolist())
+
+            
 
     def mostrar_tooltip(self, event):
         self.tooltip.place(x=event.x_root, y=event.y_root -30)  

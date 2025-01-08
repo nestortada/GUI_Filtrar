@@ -1,9 +1,12 @@
 from PyQt6.QtWidgets import QMainWindow, QApplication, QMessageBox, QTableWidgetItem
 from QT_Designer.Modificar import Ui_Modificar
 import pandas as pd
+from PyQt6.QtCore import pyqtSignal
 
 
 class Modificar(QMainWindow):
+    closed = pyqtSignal()
+
     def __init__(self, archivo, hoja):
         super(Modificar, self).__init__()
         self.archivo = archivo
@@ -12,9 +15,11 @@ class Modificar(QMainWindow):
         self.ui.setupUi(self)
         self.df = pd.read_excel(self.archivo, sheet_name=self.hoja)
        
-        self.mod()
+        self.col = self.mod()
 
         self.ui.B_pre.clicked.connect(self.pre)
+
+        self.ui.pushButton.clicked.connect(self.continuar)
 
         
 
@@ -48,25 +53,90 @@ class Modificar(QMainWindow):
 
             self.ui.comboBox.clear()
             self.ui.comboBox.addItems(columnas)
+
+            return self.df.copy()
+        
         except Exception as e:
             QMessageBox.critical(self, "Error", f"An error occurred: {e}")
+            return self.df.copy()
 
     def pre(self):
- 
-        op1 = self.ui.Elemento1.currentText()
-        op2 = self.ui.Elemento2.currentText()
-        op3 = self.ui.Elemento3.currentText()
-        op4 = self.ui.Elemento4.currentText()
-        op5 = self.ui.Elemento5.currentText()
-        op6 = self.ui.Elemento6.currentText()
 
-        opciones = [op1, op2 , op3 , op4 , op5 ,op6]
+        try: 
+            op1 = self.ui.Elemento1.currentText()
+            op2 = self.ui.Elemento2.currentText()
+            op3 = self.ui.Elemento3.currentText()
+            op4 = self.ui.Elemento4.currentText()
+            op5 = self.ui.Elemento5.currentText()
+            op6 = self.ui.Elemento6.currentText()
+
+            opciones = [op1, op2 , op3 , op4 , op5 ,op6]
+            
+            listaop = [int(op) - 1 for op in opciones if op and op.isdigit()]
+
+            Eli = self.ui.comboBox.currentText()
+
+
+            indice = self.df.columns.get_loc(Eli)
+
+            recupera = self.df.iloc[:,:indice +1]
+
+            nueva = self.df.iloc[:, indice + 1 :]
+            
+            filas = [ nueva.iloc[esc].tolist() for esc in listaop]
+
+            columnas = [" ".join(map(str,valores)) for valores in zip(*filas)]
+
+            nueva.columns = columnas
+
+
+            for i , (col , val) in enumerate(recupera.items()):
+                nueva.insert(i,col,val)
+
+            
+
+            nueva= nueva.drop(index = listaop)
+
+            nueva = nueva.reset_index(drop=True) 
+            
+            
+            
+
+            self.ui.Vista.clear()
+            self.ui.Vista.setRowCount(nueva.shape[0])  
+            self.ui.Vista.setColumnCount(nueva.shape[1])  
+            self.ui.Vista.setHorizontalHeaderLabels(nueva.columns)  
+
+            for row_idx, row in nueva.iterrows():
+                for col_idx, value in enumerate(row):
+                    self.ui.Vista.setItem(row_idx, col_idx, QTableWidgetItem(str(value)))
+
+            self.col = nueva
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Ocurrio un Error: {e}")
+
+    
+    def continuar(self):
+        try:
+            self.col.to_excel(self.archivo, index=False, sheet_name=self.hoja)
+            self.close()
+
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Occurio un error: {e}")
+
+    def closeEvent(self, event):
+        self.closed.emit()  
+        super().closeEvent(event)
+
         
-        listaop = [op for op in opciones if op != ""]
 
-        filas = [self.df.iloc[esc] for esc in listaop]
 
-        columnas = [" ".join(map(str,valores)) for valores in zip(*filas)]
+
+
+        
+
+
 
         
 
