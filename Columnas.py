@@ -15,7 +15,7 @@ class Modificar(QMainWindow):
         self.ui.setupUi(self)
         self.df = pd.read_excel(self.archivo, sheet_name=self.hoja)
        
-        self.col = self.mod()
+        self.col , self.ind = self.mod()
 
         self.ui.B_pre.clicked.connect(self.pre)
 
@@ -26,8 +26,9 @@ class Modificar(QMainWindow):
 
     def mod(self):
         try:
-      
-            
+
+            indice = self.df["Indice"]
+            self.df = self.df.drop(columns = "Indice")
             filas = [str(idx +1) for idx in self.df.index.tolist()] 
             columnas = [str(col) for col in self.df.columns.tolist()] 
             filas.insert(0, None) 
@@ -54,11 +55,11 @@ class Modificar(QMainWindow):
             self.ui.comboBox.clear()
             self.ui.comboBox.addItems(columnas)
 
-            return self.df.copy()
+            return self.df.copy() , indice
         
         except Exception as e:
             QMessageBox.critical(self, "Error", f"An error occurred: {e}")
-            return self.df.copy()
+            return self.df.copy() , indice
 
     def pre(self):
 
@@ -83,7 +84,11 @@ class Modificar(QMainWindow):
 
             nueva = self.df.iloc[:, indice + 1 :]
             
-            filas = [ nueva.iloc[esc].tolist() for esc in listaop]
+            filas = []
+            for esc in listaop:
+                fila = nueva.iloc[esc].tolist()
+                nueva_fila = [str(elemento).replace(" 00:00:00", "") for elemento in fila]
+                filas.append(nueva_fila)
 
             columnas = [" ".join(map(str,valores)) for valores in zip(*filas)]
 
@@ -96,6 +101,8 @@ class Modificar(QMainWindow):
             
 
             nueva= nueva.drop(index = listaop)
+
+            self.ind = self.ind.drop(index = listaop)
 
             nueva = nueva.reset_index(drop=True) 
             
@@ -113,12 +120,15 @@ class Modificar(QMainWindow):
 
             self.col = nueva
 
+            
+
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Ocurrio un Error: {e}")
 
     
     def continuar(self):
         try:
+            self.col.insert(0,"Indice",self.ind.values)
             self.col.to_excel(self.archivo, index=False, sheet_name=self.hoja)
             self.close()
 

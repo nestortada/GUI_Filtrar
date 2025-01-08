@@ -39,6 +39,8 @@ class Tables(Tk):
             return pd.DataFrame()
         
     def modificar(self):
+
+        self.table.model.df["Indice"] = self.table.model.df.index
        
         self.table.model.df.to_excel(self.archivo, sheet_name=self.hoja, index=False)
         
@@ -53,8 +55,28 @@ class Tables(Tk):
     def actualizar_tabla(self):
     
         new_df = self.lectura()
-        print(new_df.index.tolist())
-        print(self.table.model.df.index.tolist())
+        new_df = new_df.set_index("Indice")
+
+        self.table.model.df = pd.DataFrame()
+
+        self.table.redraw()
+
+        self.nuevo_df(new_df)
+
+    def nuevo_df(self, nuevo_df):
+        try:
+            nuevo_df = nuevo_df.infer_objects(copy=False)  
+
+            self.table.model.df = nuevo_df  
+            self.table.redraw()
+
+            
+        except Exception as e:
+            print(f"Error al actualizar la tabla: {e}")
+            
+            
+
+
 
             
 
