@@ -134,16 +134,6 @@ font: 75 16pt &quot;MS Shell Dlg 2&quot;;</string>
      <string>Previsualizar</string>
     </property>
    </widget>
-   <widget class="QTableView" name="tableView">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>260</y>
-      <width>781</width>
-      <height>241</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
@@ -212,6 +202,16 @@ font: 75 16pt &quot;MS Shell Dlg 2&quot;;</string>
       <y>120</y>
       <width>271</width>
       <height>21</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>250</y>
+      <width>781</width>
+      <height>261</height>
      </rect>
     </property>
    </widget>
