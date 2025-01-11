@@ -139,20 +139,6 @@ class Modificar(QMainWindow):
         self.closed.emit()  
         super().closeEvent(event)
 
-        
-
-
-
-
-        
-
-
-
-        
-
-
-
-
 
 if __name__ == "__main__":
     import sys

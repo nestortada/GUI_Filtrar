@@ -53,7 +53,7 @@ class Col_fil(QMainWindow):
             if index != "Ninguno":
                 Eli = self.ui.Box_col.currentText()
                 try:
-                    indice = self.col.columns.get_loc(Eli)  # Corrected method
+                    indice = self.col.columns.get_loc(Eli)  
                     nuevo = self.col.iloc[:, indice + 1 :]
                     valores = pd.unique(nuevo.values.ravel())  
                     self.ui.Box_fil.addItems(map(str, valores))  
@@ -112,11 +112,21 @@ class Col_fil(QMainWindow):
                 for row_idx, row in filtrar.iterrows():
                     for col_idx, value in enumerate(row):
                         self.ui.tableWidget.setItem(row_idx, col_idx, QTableWidgetItem(str(value)))
+
+                self.df = filtrar
             except Exception as e:
                 QMessageBox.critical(self, "Error", f"Ocurrió un error al previsualizar: {e}")
         else:
             QMessageBox.information(self, "Falta información", "Debes proporcionar nombres para las columnas y valores.")
 
     def conti(self):
-        pass                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+        try: 
+            self.df.to_excel(self.archivo , index = False , sheet_name = self.hoja)
+            self.close()
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"Occurio un error: {e}")
+
+    def closeEvent(self, event):
+        self.closed.emit()  
+        super().closeEvent(event)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 
