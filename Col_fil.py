@@ -3,6 +3,7 @@ from QT_Designer.Columnas_filas import Ui_Col_fil
 import pandas as pd
 from PyQt6.QtCore import pyqtSignal
 
+
 class Col_fil(QMainWindow):
     closed = pyqtSignal()
 
@@ -56,11 +57,13 @@ class Col_fil(QMainWindow):
                     indice = self.col.columns.get_loc(Eli)  
                     nuevo = self.col.iloc[:, indice + 1 :]
                     valores = pd.unique(nuevo.values.ravel())  
+                    self.ui.Box_fil.clear()
                     self.ui.Box_fil.addItems(map(str, valores))  
                 except Exception as e:
                     QMessageBox.critical(self, "Error", f"Ocurrió un error: {e}")
             else:
                 try:
+                    self.ui.Box_fil.clear()
                     valores =  pd.unique(self.col.values.ravel()) 
                     self.ui.Box_fil.addItems(map(str, valores))  
                 except Exception as e:

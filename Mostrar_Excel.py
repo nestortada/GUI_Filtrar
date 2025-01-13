@@ -4,6 +4,7 @@ from pandastable import Table , TableModel
 from PIL import Image, ImageTk
 from Columnas import Modificar
 from Col_fil import Col_fil
+from Tabla_rel import Tabla_rel
 
 class Tables(Tk):
     def __init__(self, archivo, hoja, *args, **kwargs):
@@ -126,7 +127,17 @@ class Tables(Tk):
         self.col_fil.show()
 
     def rela(self):
-        pass
+        self.table.model.df["Indice"] = self.table.model.df.index
+       
+        self.table.model.df.to_excel(self.archivo, sheet_name=self.hoja, index=False)
+        
+        
+        self.columnas = Tabla_rel(self.archivo, self.hoja)
+        
+        
+        self.columnas.closed.connect(self.actualizar_tabla)
+        
+        self.columnas.show()
 
     def macro(self):
         pass
