@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import QMainWindow, QApplication, QMessageBox, QTableWidget
 from QT_Designer.Modificar import Ui_Modificar
 import pandas as pd
 from PyQt6.QtCore import pyqtSignal
+from macro import Macro
 
 
 class Modificar(QMainWindow):
@@ -20,6 +21,9 @@ class Modificar(QMainWindow):
         self.ui.B_pre.clicked.connect(self.pre)
 
         self.ui.pushButton.clicked.connect(self.continuar)
+        
+        self.listaop = None
+        self.Eli = None
 
         
 
@@ -73,19 +77,19 @@ class Modificar(QMainWindow):
 
             opciones = [op1, op2 , op3 , op4 , op5 ,op6]
             
-            listaop = [int(op) - 1 for op in opciones if op and op.isdigit()]
+            self.listaop = [int(op) - 1 for op in opciones if op and op.isdigit()]
 
-            Eli = self.ui.comboBox.currentText()
+            self.Eli = self.ui.comboBox.currentText()
 
 
-            indice = self.df.columns.get_loc(Eli)
+            indice = self.df.columns.get_loc(self.Eli)
 
             recupera = self.df.iloc[:,:indice +1]
 
             nueva = self.df.iloc[:, indice + 1 :]
             
             filas = []
-            for esc in listaop:
+            for esc in self.listaop:
                 fila = nueva.iloc[esc].tolist()
                 nueva_fila = [str(elemento).replace(" 00:00:00", "") for elemento in fila]
                 filas.append(nueva_fila)
@@ -100,9 +104,9 @@ class Modificar(QMainWindow):
 
             
 
-            nueva= nueva.drop(index = listaop)
+            nueva= nueva.drop(index = self.listaop)
 
-            self.ind = self.ind.drop(index = listaop)
+            self.ind = self.ind.drop(index = self.listaop)
 
             nueva = nueva.reset_index(drop=True) 
             
@@ -127,11 +131,11 @@ class Modificar(QMainWindow):
 
     
     def continuar(self):
+        Macro(self.hoja).columnas(listaop= self.listaop,Eli= self.Eli)
         try:
             self.col.insert(0,"Indice",self.ind.values)
             self.col.to_excel(self.archivo, index=False, sheet_name=self.hoja)
             self.close()
-
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Occurio un error: {e}")
 

@@ -3,6 +3,7 @@ from QT_Designer.Relacionar import Ui_Relacionar
 import pandas as pd
 from PyQt6.QtCore import pyqtSignal
 from tkinter import filedialog
+from macro import Macro
 
 class Tabla_rel(QMainWindow):
     closed = pyqtSignal()
@@ -112,6 +113,8 @@ class Tabla_rel(QMainWindow):
 
 
     def conti(self):
+        Macro(self.hoja).tabla_rel(T_col= self.ui.T_col.text(), Box_buscar= self.ui.Box_buscar.currentText(), 
+                                   nuevo= self.nuevo, Box_colN= self.ui.Box_colN.currentText(), Box_colA= self.ui.Box_colA.currentText())
         try:
             self.df.insert(0, "Indice", self.ind.values)
             self.df.to_excel(self.archivo , index = False , sheet_name = self.hoja)

@@ -104,6 +104,10 @@ class Tables(Tk):
             return pd.DataFrame()
         
     def modificar(self):
+        
+        Macro(self.hoja).eliminar_col(self.table.model.df.columns.tolist())       
+
+        Macro(self.hoja).eliminar_fil(self.table.model.df.index.tolist()) 
 
         self.table.model.df["Indice"] = self.table.model.df.index
        
@@ -118,6 +122,10 @@ class Tables(Tk):
         self.columnas.show()
 
     def col(self):
+        Macro(self.hoja).eliminar_col(self.table.model.df.columns.tolist())       
+
+        Macro(self.hoja).eliminar_fil(self.table.model.df.index.tolist()) 
+
         self.table.model.df["Indice"] = self.table.model.df.index
 
         self.table.model.df.to_excel(self.archivo, sheet_name = self.hoja , index = False)
@@ -128,6 +136,11 @@ class Tables(Tk):
         self.col_fil.show()
 
     def rela(self):
+        
+        Macro(self.hoja).eliminar_col(self.table.model.df.columns.tolist())       
+
+        Macro(self.hoja).eliminar_fil(self.table.model.df.index.tolist()) 
+
         self.table.model.df["Indice"] = self.table.model.df.index
        
         self.table.model.df.to_excel(self.archivo, sheet_name=self.hoja, index=False)
@@ -141,8 +154,7 @@ class Tables(Tk):
         self.columnas.show()
 
     def macro(self):
-        self.mac = Macro(self.archivo , self.hoja)
-        self.mac.show()
+        pass
 
     def guardar(self):
         pass

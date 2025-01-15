@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import QMainWindow, QApplication, QMessageBox, QTableWidget
 from QT_Designer.Columnas_filas import Ui_Col_fil
 import pandas as pd
 from PyQt6.QtCore import pyqtSignal
+from macro import Macro
 
 
 class Col_fil(QMainWindow):
@@ -123,6 +124,8 @@ class Col_fil(QMainWindow):
             QMessageBox.information(self, "Falta información", "Debes proporcionar nombres para las columnas y valores.")
 
     def conti(self):
+        Macro(self.hoja).col_fil(N_columna= self.ui.N_columna.text(), N_valor= self.ui.N_valor.text(),R_si= self.ui.R_si.isChecked(), 
+                                 Box_col= self.ui.Box_col.currentText(), Box_fil= self.ui.Box_fil.currentText(), R_no= self.ui.R_no.isChecked())
         try: 
             self.df.to_excel(self.archivo , index = False , sheet_name = self.hoja)
             self.close()
