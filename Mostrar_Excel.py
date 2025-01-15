@@ -106,8 +106,6 @@ class Tables(Tk):
     def modificar(self):
 
         self.table.model.df["Indice"] = self.table.model.df.index
-
-        print(self.table.model.df.columns.tolist())
        
         self.table.model.df.to_excel(self.archivo, sheet_name=self.hoja, index=False)
         
