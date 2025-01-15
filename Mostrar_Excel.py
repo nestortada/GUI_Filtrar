@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 from Columnas import Modificar
 from Col_fil import Col_fil
 from Tabla_rel import Tabla_rel
+from macro import Macro
 
 class Tables(Tk):
     def __init__(self, archivo, hoja, *args, **kwargs):
@@ -105,6 +106,8 @@ class Tables(Tk):
     def modificar(self):
 
         self.table.model.df["Indice"] = self.table.model.df.index
+
+        print(self.table.model.df.columns.tolist())
        
         self.table.model.df.to_excel(self.archivo, sheet_name=self.hoja, index=False)
         
@@ -140,7 +143,8 @@ class Tables(Tk):
         self.columnas.show()
 
     def macro(self):
-        pass
+        self.mac = Macro(self.archivo , self.hoja)
+        self.mac.show()
 
     def guardar(self):
         pass

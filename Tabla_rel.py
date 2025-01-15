@@ -58,7 +58,7 @@ class Tabla_rel(QMainWindow):
     
     def coln(self):
         name = self.ui.comboBox.currentText()
-        if name != "" or name != None:
+        if name != "":
             try:
                 self.nuevo = pd.read_excel(self.archi , sheet_name= name)
                 columnas = [str(col) for col in self.nuevo.columns.tolist()]
@@ -70,9 +70,57 @@ class Tabla_rel(QMainWindow):
                 QMessageBox.critical(self, "Error", f"Ocurrio un error: {e}")
         
     def preview(self):
-        pass
+        N_col = self.ui.T_col.text()
+        if N_col == "":
+            N_col = self.ui.Box_buscar.currentText()
+        try:
+            
+            relacionar = self.nd.merge(
+                self.nuevo[[self.ui.Box_colN.currentText(), self.ui.Box_buscar.currentText()]].rename(columns = {self.ui.Box_buscar.currentText(): N_col}),
+                left_on=self.ui.Box_colA.currentText(),
+                right_on=self.ui.Box_colN.currentText(),
+                how="left"
+            )
+
+            
+            relacionar = relacionar.drop(columns=[self.ui.Box_colN.currentText()])
+
+           
+            self.ui.Vista.clearContents()
+            self.ui.Vista.setRowCount(relacionar.shape[0])
+            self.ui.Vista.setColumnCount(relacionar.shape[1])
+            self.ui.Vista.setHorizontalHeaderLabels(relacionar.columns.tolist())
+
+            
+            for row_idx, row in relacionar.iterrows():
+                for col_idx, value in enumerate(row):
+                    self.ui.Vista.setItem(row_idx, col_idx, QTableWidgetItem(str(value)))
+
+            
+            self.df = relacionar
+
+        except KeyError as e:
+            print(f"Error de clave: {e}")
+            QMessageBox.critical(self, "Error", f"Clave no encontrada: {e}")
+        except AttributeError as e:
+            print(f"Error de atributo: {e}")
+            QMessageBox.critical(self, "Error", f"Error de atributo: {e}")
+        except Exception as e:
+            print(f"Error inesperado: {e}")
+            QMessageBox.critical(self, "Error", f"Se produjo un error: {e}")    
+
+
 
     def conti(self):
-        pass
+        try:
+            self.df.insert(0, "Indice", self.ind.values)
+            self.df.to_excel(self.archivo , index = False , sheet_name = self.hoja)
+            self.close()
+        except Exception as e:
+            QMessageBox.critical(self, "Error" , f"Ocurrio un error : {e}")
+
+    def closeEvent(self, event):
+        self.closed.emit()  
+        super().closeEvent(event)
 
         
